@@ -1,0 +1,4 @@
+rootProject.name = 'wwbank2'
+include 'app'
+include 'common'
+
