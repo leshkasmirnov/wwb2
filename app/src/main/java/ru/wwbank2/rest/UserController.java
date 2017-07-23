@@ -1,9 +1,9 @@
 package ru.wwbank2.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.wwbank2.domain.Account;
-import ru.wwbank2.rest.response.GetAccountsByUserIdResponse;
 import ru.wwbank2.services.AccountService;
 
 import java.util.Collection;
@@ -21,9 +21,9 @@ public class UserController {
 
     @GetMapping("/{userId}/accounts")
     @ResponseBody
-    GetAccountsByUserIdResponse getUserAccounts(@PathVariable("userId") String userId) {
+    ResponseEntity<Collection<Account>> getUserAccounts(@PathVariable("userId") String userId) {
         Collection<Account> accounts = accountService.getAccountsByUserId(userId);
-        return GetAccountsByUserIdResponse.from(accounts);
+        return ResponseEntity.ok(accounts);
     }
 
 }

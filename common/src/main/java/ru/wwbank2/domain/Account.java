@@ -41,4 +41,12 @@ public class Account {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    public void debit(Long amount) {
+        this.amount -= amount;
+    }
+
+    public void credit(Long amount) {
+        this.amount += amount;
+    }
 }

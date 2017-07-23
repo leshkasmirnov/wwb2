@@ -13,9 +13,22 @@ import java.util.Collection;
 @Service
 @SuppressWarnings("unused")
 public class AccountServiceImpl implements AccountService{
+
     @Override
     public void transfer(Account from, Account to, long amount) {
+        final Object monitor1 = from.getId() < to.getId() ? from : to;
+        final Object monitor2 = from.getId() > to.getId() ? from : to;
 
+        synchronized (monitor1) {
+            synchronized (monitor2) {
+                if (from.getAmount().compareTo(amount) < 0) {
+                    throw new RuntimeException();
+                }
+                from.debit(amount);
+                to.credit(amount);
+                // save
+            }
+        }
     }
 
     @Override
